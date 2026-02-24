@@ -1,1 +1,23 @@
-
+{
+  "secretKey": "CHANGE_THIS_TO_SOMETHING_PRIVATE",
+  "currencyName": "leaves",
+  "dailyRewardMax": 100,
+  "dailyChatRequirement": 3,
+  "xpCooldownMs": 30000,
+  "triviaChance": 0.45,
+  "autoroleId": "",
+  "logChannelId": "",
+  "roles": {
+    "gradient": "1475615261796204688",
+    "holo": "1475618236379955355",
+    "dog": "1204931034119151646"
+  },
+  "shop": {
+    "movie": 800,
+    "game": 900,
+    "gradient": 1200,
+    "holo": 1500,
+    "dog": 2200,
+    "icon": 4000
+  }
+}
