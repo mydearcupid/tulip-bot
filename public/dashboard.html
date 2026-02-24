@@ -1,59 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Tulip Admin Dashboard</title>
-  <style>
-    body { font-family: Arial; padding: 20px; background:#f5f5f5; }
-    input, button { padding:8px; margin:5px 0; width:100%; }
-    .box { background:white; padding:15px; border-radius:6px; margin-bottom:20px; }
-  </style>
-</head>
-<body>
-
-<h2>Tulip Dashboard</h2>
-
-<div class="box">
-  <h3>Login</h3>
-  <input id="key" placeholder="Enter Secret Key">
-  <button onclick="loadConfig()">Load Config</button>
-</div>
-
-<div id="configSection" style="display:none;" class="box">
-  <h3>Economy Settings</h3>
-  <input id="currencyName" placeholder="Currency Name">
-  <input id="triviaChance" placeholder="Trivia Chance (0.45)">
-  <input id="dailyRewardMax" placeholder="Daily Reward Max">
-  <button onclick="saveConfig()">Save</button>
-</div>
-
 <script>
 let currentKey = "";
 
-function loadConfig(){
+async function loadConfig() {
   currentKey = document.getElementById("key").value;
-  fetch("/api/config?key=" + currentKey)
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("currencyName").value = data.currencyName;
-    document.getElementById("triviaChance").value = data.triviaChance;
-    document.getElementById("dailyRewardMax").value = data.dailyRewardMax;
-    document.getElementById("configSection").style.display = "block";
-  });
+
+  const res = await fetch("/api/config?key=" + currentKey);
+  const data = await res.json();
+
+  if (data.error) {
+    alert("Invalid key");
+    return;
+  }
+
+  document.getElementById("currencyName").value = data.currencyName || "";
+  document.getElementById("triviaChance").value = data.triviaChance || "";
+  document.getElementById("dailyRewardMax").value = data.dailyRewardMax || "";
+
+  document.getElementById("configSection").style.display = "block";
 }
 
-function saveConfig(){
-  fetch("/api/config", {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
+async function saveConfig() {
+  await fetch("/api/config", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       key: currentKey,
       currencyName: document.getElementById("currencyName").value,
-      triviaChance: document.getElementById("triviaChance").value,
-      dailyRewardMax: document.getElementById("dailyRewardMax").value
+      triviaChance: parseFloat(document.getElementById("triviaChance").value),
+      dailyRewardMax: parseInt(document.getElementById("dailyRewardMax").value)
     })
-  }).then(()=>alert("Saved"));
+  });
+
+  alert("Saved");
 }
 </script>
-
-</body>
-</html>
