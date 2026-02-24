@@ -1,5 +1,5 @@
 {
-  "secretKey": "CHANGE_THIS_TO_SOMETHING_PRIVATE",
+  "secretKey": "tulip-bot-2026",
   "currencyName": "leaves",
   "dailyRewardMax": 100,
   "dailyChatRequirement": 3,
