@@ -86,6 +86,10 @@ function getLevel(xp) {
   return Math.floor(0.1 * Math.sqrt(xp));
 }
 
+function isAdmin(member) {
+  return member.permissions.has("Administrator");
+}
+
 function weightedTrivia() {
   const roll = Math.random();
   if (roll < 0.6) return triviaQuestions.filter(q => q.d === "easy");
