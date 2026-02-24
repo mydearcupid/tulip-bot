@@ -93,9 +93,14 @@ function weightedTrivia() {
   return triviaQuestions.filter(q => q.d === "hard");
 }
 
-// =====================
+// ==========================
 // DASHBOARD ROUTES
-// =====================
+// ==========================
+
+// This handles visiting the root URL
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/dashboard.html");
+});
 
 app.get("/api/config", (req, res) => {
   if (req.query.key !== config.secretKey)
